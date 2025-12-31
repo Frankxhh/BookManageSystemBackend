@@ -19,6 +19,15 @@ export class UserService {
     return null;
   }
 
+  async login(loginUserDto: RegisterUserDto) {
+    const db = await this.dbService.getDb();
+    const user = db.find((user: User) => user.username === loginUserDto.username);
+    if (!user) {
+      throw new BadRequestException('用户不存在');
+    }
+
+    return user;
+  }
   create(createUserDto: CreateUserDto) {
     return 'This action adds a new user';
   }
