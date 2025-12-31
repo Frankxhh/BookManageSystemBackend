@@ -12,8 +12,6 @@ export class DbService {
   }
 
   async setDb(data: any) {
-    const db = await this.getDb();
-    db.push(data);
-    await writeFile(this.options.path, JSON.stringify(db ?? [], null, 2), { encoding: 'utf-8' });
+    await writeFile(this.options.path, JSON.stringify(data ?? [], null, 2), { encoding: 'utf-8' });
   }
 }
