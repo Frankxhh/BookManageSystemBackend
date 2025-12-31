@@ -1,11 +1,11 @@
 import { IsNotEmpty, MinLength } from 'class-validator';
 export class RegisterUserDto {
-  //   @IsNotEmpty({
-  //     message: 'Username is required',
-  //   })
+  @IsNotEmpty({
+    message: 'Username is required',
+  })
   username: string;
 
-  //   @IsNotEmpty({ message: '密码不能为空' })
-  //   @MinLength(6, { message: '密码最少 6 位' })
+  @IsNotEmpty({ message: '密码不能为空' })
+  @MinLength(6, { message: '密码最少 6 位' })
   password: string;
 }
