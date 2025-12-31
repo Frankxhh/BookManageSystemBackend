@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { DynamicModule, Module } from '@nestjs/common';
 import { DbService } from './db.service';
 
 export interface DbModuleOptions {
@@ -7,7 +7,7 @@ export interface DbModuleOptions {
 
 @Module({})
 export class DbModule {
-  static register(options: DbModuleOptions) {
+  static register(options: DbModuleOptions): DynamicModule {
     return {
       module: DbModule,
       providers: [
