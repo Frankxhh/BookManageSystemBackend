@@ -1,9 +1,24 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { RegisterUserDto } from './dto/register-user.dto';
+import { DbService } from 'src/db/db.service';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
+  constructor(private readonly dbService: DbService) {}
+
+  async register(registerUserDto: RegisterUserDto) {
+    const db = await this.dbService.getDb();
+    const user = db.find((user: User) => user.username === registerUserDto.username);
+    if (user) {
+      throw new BadRequestException('用户已存在');
+    }
+    await this.dbService.setDb(registerUserDto);
+    return null;
+  }
+
   create(createUserDto: CreateUserDto) {
     return 'This action adds a new user';
   }
